@@ -6,62 +6,72 @@
             <h1>BREADS (Browse, Read, Edit, Add, Delete, Sort)</h1>
         </div>
         <div class="card-body">
-            <form>
+          <!-- START FORM -->
+            <form action="" method="get">
+              <input type="hidden" name="page" value="1">
                 <!-- ID -->
                 <div class="row mb-3">
-                  <label for="id" class="col-sm-2 col-form-label">ID</label>
+                  <label for="id" class="col-sm-2 col-form-label"><input type="checkbox" name="idCheck" <%=query.idCheck=='on'
+                    ? 'checked' : '' %>> ID</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" name="id" id="id" placeholder="ID">
+                    <input type="number" class="form-control" name="id" id="id" placeholder="ID" value="<%=query.id%>">
                   </div>
                 </div>
                 <!-- STRING -->
                 <div class="row mb-3">
-                  <label for="string" class="col-sm-2 col-form-label">String</label>
+                  <label for="string" class="col-sm-2 col-form-label"><input type="checkbox" name="stringCheck" <%=query.stringCheck=='on'
+                    ? 'checked' : '' %>> String</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="string" id="string" placeholder="String">
+                    <input type="text" class="form-control" name="string" id="string" placeholder="String" value="<%= query.string %>">
                   </div>
                 </div>
                 <!-- INTEGER -->
                 <div class="row mb-3">
-                    <label for="integer" class="col-sm-2 col-form-label">Integer</label>
+                    <label for="integer" class="col-sm-2 col-form-label"><input type="checkbox" name="integerCheck" <%=query.integerCheck=='on'
+                      ? 'checked' : '' %>> Integer</label>
                     <div class="col-sm-10">
-                      <input type="number" class="form-control" name="integer" id="integer" placeholder="Integer">
+                      <input type="number" class="form-control" name="integer" id="integer" placeholder="Integer" value="<%= query.integer %>">
                     </div>
                   </div>
                   <!-- FLOAT -->
                   <div class="row mb-3">
-                    <label for="float" class="col-sm-2 col-form-label">Float</label>
+                    <label for="float" class="col-sm-2 col-form-label"><input type="checkbox" name="floatCheck" <%=query.floatCheck=='on'
+                      ? 'checked' : '' %>> Float</label>
                     <div class="col-sm-10">
-                      <input type="number" step="0.005" class="form-control" name="float" id="float" placeholder="Float">
+                      <input type="number" step="0.005" class="form-control" name="float" id="float" placeholder="Float" value="<%= query.float %>">
                     </div>
                   </div>
                   <!-- DATE -->
                   <div class="row mb-3">
-                    <label for="date" class="col-sm-2 col-form-label">Date</label>
+                    <label for="date" class="col-sm-2 col-form-label"><input type="checkbox" name="dateCheck" <%=query.dateCheck=='on'
+                      ? 'checked' : '' %>> Date</label>
                     <div class="col-sm-10">
-                      <input type="date" name="fromdate" class="form-control" id="date">
+                      <input type="date" name="fromdate" class="form-control" id="date" value="<%= query.fromdate %>">
                       <span>to</span>
-                      <input type="date" name="todate" class="form-control" id="date">
+                      <input type="date" name="todate" class="form-control" id="date" value="<%= query.todate %>">
                     </div>
                   </div>
                   <!-- BOOLEAN -->
                   <div class="row mb-3">
-                    <label for="boolean" class="col-sm-2 col-form-label">Boolean</label>
+                    <label for="boolean" class="col-sm-2 col-form-label"><input type="checkbox" name="booleanCheck" <%=query.booleanCheck=='on'
+                      ? 'checked' : '' %>> Boolean</label>
                     <div class="col-sm-10">
                         <select name="boolean" class="form-control" id="boolean">
                             <option value="" disabled selected >Choose the boolean ... </option>
-                            <option value="true">True</option>
-                            <option value="false">False</option>
+                            <option value=true <%=query.boolean==1 ? ' selected ' : '' %>>True</option>
+                            <option value=false <%=query.boolean==0 ? ' selected ' : '' %>>False</option>
                         </select>
                     </div>
                   </div>
                   <button type="submit" class="btn btn-primary">Search</button>
                   <a href="/" class="btn btn-warning">Reset</a>
             </form>
+            <!-- END FORM -->
         </div>
         <table class="table">
             <thead>
                 <tr>
+                    <th>NO</th>
                     <th>ID</th>
                     <th>String</th>
                     <th>Integer</th>
@@ -75,6 +85,7 @@
                 <% todos.forEach((item, index) => { %>
                 <tr>
                     <td><%= offset + index + 1 %></td>
+                    <td><%= item.id %></td>
                     <td><%= item.string %></td>
                     <td><%= item.integer %></td>
                     <td><%= item.float %></td>
@@ -91,15 +102,15 @@
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item<%= page == 1 ? ' disabled': '' %>">
-              <a class="page-link" href="/?page=<%= page - 1 %>" aria-label="Previous">
+              <a class="page-link" href="<%= url.replace(`page=${page}`,`page=${page -1}`) %>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
             <% for(let i = 1; i <= pages; i++){%>
-            <li class="page-item<%= page == i ? ' active': '' %>"><a class="page-link" href="/?page=<%= i %>"><%= i %></a></li>
+            <li class="page-item<%= page == i ? ' active': '' %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${i}`) %>"><%= i %></a></li>
             <% } %>
             <li class="page-item<%= page == pages ? ' disabled': '' %>">
-              <a class="page-link" href="/?page=<%= page + 1 %>" aria-label="Next">
+              <a class="page-link" href="<%= url.replace(`page=${page}`,`page=${page + 1}`) %>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
