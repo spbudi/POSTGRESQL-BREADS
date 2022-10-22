@@ -3,7 +3,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header text-center">
-            <h1>BREADS</h1>
+            <h1>BREADS (Browse, Read, Edit, Add, Delete, Sort)</h1>
         </div>
         <div class="card-body">
             <form>
@@ -74,7 +74,7 @@
             <tbody>
                 <% todos.forEach((item, index) => { %>
                 <tr>
-                    <td><%= index + 1 %></td>
+                    <td><%= offset + index + 1 %></td>
                     <td><%= item.string %></td>
                     <td><%= item.integer %></td>
                     <td><%= item.float %></td>
@@ -88,6 +88,23 @@
                 <% }) %>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item<%= page == 1 ? ' disabled': '' %>">
+              <a class="page-link" href="/?page=<%= page - 1 %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <% for(let i = 1; i <= pages; i++){%>
+            <li class="page-item<%= page == i ? ' active': '' %>"><a class="page-link" href="/?page=<%= i %>"><%= i %></a></li>
+            <% } %>
+            <li class="page-item<%= page == pages ? ' disabled': '' %>">
+              <a class="page-link" href="/?page=<%= page + 1 %>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
         <div class="card-footer">
             <a href="/add" class="btn btn-primary">Add</a>
         </div>
