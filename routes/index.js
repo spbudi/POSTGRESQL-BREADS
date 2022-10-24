@@ -6,8 +6,11 @@ module.exports = function (db) {
   // HOME
   router.get('/', function (req, res) {
     // console.log(req.url);
-    const url = req.url == '/' ? '/?page=1' : req.url
-    console.log(url);
+    
+    const url = req.url == '/' ? '/?page=1&&sortBy=id&sortMode=asc' : req.url
+    const sortBy = req.query.sortBy || 'id'
+    const sortMode = req.query.sortMode || 'asc'
+    // console.log(url);
 
     // SEARCHING
     let params = [];
@@ -70,9 +73,13 @@ module.exports = function (db) {
     if(params.length > 0){
       sql += ` WHERE ${params.join(' AND ')}`
     }
+
+    sql += ` ORDER BY ${sortBy} ${sortMode}`
     sql += ` LIMIT $${values.length + 1} OFFSET $${values.length + 2}`
 
-    console.log('sql', sql);
+
+
+    // console.log('sql', sql);
 
       db.query(sql, [...values, limit, offset], (err, data) => {
           if (err) return res.send(err);
@@ -83,7 +90,9 @@ module.exports = function (db) {
             pages,
             offset,
             query: req.query,
-            url
+            url,
+            sortBy,
+            sortMode
           });
         }
       );

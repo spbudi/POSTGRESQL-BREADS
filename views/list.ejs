@@ -63,21 +63,21 @@
                         </select>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Search</button>
-                  <a href="/" class="btn btn-warning">Reset</a>
+                  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+                  <a href="/" class="btn btn-warning"><i class="fa-solid fa-rotate"></i></a>
             </form>
             <!-- END FORM -->
         </div>
         <table class="table">
             <thead>
                 <tr>
-                    <th>NO</th>
-                    <th>ID</th>
-                    <th>String</th>
-                    <th>Integer</th>
-                    <th>Float</th>
-                    <th>Date</th>
-                    <th>Boolean</th>
+                    <th> NO</th>
+                    <th><a href="<%= url.replace(`sortBy=${sortBy}`,`sortBy=id`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"><i class="fa-solid fa-<%= sortBy == 'id'? sortMode == 'asc' ? 'sort-up' : 'sort-down': 'sort'%>"></i> ID</a></th>
+                    <th><a href="<%= url.replace(`sortBy=${sortBy}`,`sortBy=string`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"><i class="fa-solid fa-<%= sortBy == 'string'? sortMode == 'asc' ? 'sort-up' : 'sort-down': 'sort'%>"></i> String</a></th>
+                    <th><a href="<%= url.replace(`sortBy=${sortBy}`,`sortBy=integer`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"><i class="fa-solid fa-<%= sortBy == 'integer'? sortMode == 'asc' ? 'sort-up' : 'sort-down': 'sort'%>"></i> Integer</a></th>
+                    <th><a href="<%= url.replace(`sortBy=${sortBy}`,`sortBy=float`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"><i class="fa-solid fa-<%= sortBy == 'float'? sortMode == 'asc' ? 'sort-up' : 'sort-down': 'sort'%>"></i> Float</a></th>
+                    <th><a href="<%= url.replace(`sortBy=${sortBy}`,`sortBy=date`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"><i class="fa-solid fa-<%= sortBy == 'date'? sortMode == 'asc' ? 'sort-up' : 'sort-down': 'sort'%>"></i> date</a></th>
+                    <th><a href="<%= url.replace(`sortBy=${sortBy}`,`sortBy=boolean`).replace(`sortMode=${sortMode}`,`sortMode=${sortMode == 'asc' ? 'desc' : 'asc'}`)%>"><i class="fa-solid fa-<%= sortBy == 'boolean'? sortMode == 'asc' ? 'sort-up' : 'sort-down': 'sort'%>"></i> Boolean</a></th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -92,8 +92,8 @@
                     <td><%= moment(item.date).format('DD/MM/YYYY') %></td>
                     <td><%= item.boolean %></td>
                     <td>
-                        <a href="/edit/<%= item.id%>" class="btn btn-success">Edit</a>
-                        <a href="/delete/<%= item.id%>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</a>
+                        <a href="/edit/<%= item.id%>" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/delete/<%= item.id%>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
                 <% }) %>
@@ -117,7 +117,7 @@
           </ul>
         </nav>
         <div class="card-footer">
-            <a href="/add" class="btn btn-primary">Add</a>
+            <a href="/add" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
         </div>
     </div>
 </div>
